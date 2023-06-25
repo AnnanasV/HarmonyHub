@@ -8,46 +8,56 @@
 }
 
 <style>
-    p {
-        color: #F5F5F5;
-    }
-
     hr {
-        border-top: 3px solid #D0BFDB;
         margin-top: 40px;
         margin-bottom: 40px;
+        border-top: 3px solid #D0BFDB;
     }
+
+    .accent-color {
+        color: #B397C4;
+    }
+
     .center-img {
         display: block;
         margin: 0 auto;
     }
+
+    .btn-custom {
+        background-color: #555555;
+        color: #FFFFFF;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #B397C4;
+        border-color: #B397C4;
+        color: #FFFFFF;
+    }
 </style>
 
-<div class="row">
-    <div class="col-7">
+<div class="row justify-content-center">
+    <div class="col-5">
         <br />
-        <h1 class="mt-5" style="color: #D0BFDB;">Ласкаво просимо до <b>HarmonyHub!</b></h1>
-        <p class="mt-4 fs-4" style="color: #D0BFDB;">
+        <h1 class="mt-5 accent-color">Ласкаво просимо до <b>HarmonyHub!</b></h1>
+        <p class="mt-4 fs-4">
             Знайдіть кохання, друзів або ідеального тіммейта для вашої улюбленої гри.
             Спілкуйтеся з людьми, які розуміють ваші інтереси. Переглядайте профілі,
             висловлюйте зацікавленість і розпочинайте спілкування. Приєднуйтеся до спільних чатів і знаходьте групи
             зі спільними інтересами. HarmonyHub - ваш крок до незабутніх знайомств та довгих розмов!
         </p>
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <a class="btn btn-outline-light mt-4 w-25" asp-controller="FindSomeone" asp-action="Index" asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Розпочати</a>
-        }
-        else
-        {
-            <a class="btn btn-outline-light mt-4 w-25" href="/Identity/Account/Login">Розпочати</a>
-        }
+        <a class="btn btn-outline-light btn-custom mt-4 w-25"
+           href="@(SignInManager.IsSignedIn(User) ? 
+                Url.Action("Index", "FindSomeone", new { userId = User.FindFirstValue(ClaimTypes.NameIdentifier) }) :
+                "/Identity/Account/Login")">
+            Розпочати
+        </a>
     </div>
-    <div class="col align-self-end">
+    <div class="col-auto align-self-end">
         <img src="~/images/main-photo2.png" alt="MainPhoto" style="transform: scaleX(-1); width: 500px; height: 500px;" />
     </div>
 </div>
-<hr />
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-5 mt-5 pt-4 pb-4" style="background: #332b38;">
     <div class="col-4">
         <img class="center-img" src="~/images/heart-icon.png" alt="HeartIcon" style="width: 100px; height: 100px;" />
         <center><p>HarmonyHub допомагає знайти<br /> справжню любов.</p></center>
@@ -61,6 +71,5 @@
         <center><p>Пошук вірного тіммейта<br />  стає легшим.</p></center>
     </div>
 </div>
-<hr />
 <div>
 </div>

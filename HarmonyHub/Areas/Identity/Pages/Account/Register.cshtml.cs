@@ -69,12 +69,17 @@ namespace HarmonyHub.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "FirstName")]
+            [Display(Name = "First name")]
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "LastName")]
+            [Display(Name = "Last name")]
             public string LastName { get; set; }
+
+            [Required]
+            [Range(13, 99, ErrorMessage = "Допустимий вік - від 13 років")]
+            [Display(Name = "Age")]
+            public int Age { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -132,6 +137,7 @@ namespace HarmonyHub.Areas.Identity.Pages.Account
 
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.Age = Input.Age;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
